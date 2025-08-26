@@ -9,8 +9,18 @@ interface Lojista {
 
 export const LojistasPage: React.FC = () => {
   const [lojistas, setLojistas] = useState<Lojista[]>([
-    { id: 1, nome: "Loja Exemplo 1", email: "loja1@email.com", status: "ativo" },
-    { id: 2, nome: "Loja Exemplo 2", email: "loja2@email.com", status: "inativo" },
+    {
+      id: 1,
+      nome: "Loja Exemplo 1",
+      email: "loja1@email.com",
+      status: "ativo",
+    },
+    {
+      id: 2,
+      nome: "Loja Exemplo 2",
+      email: "loja2@email.com",
+      status: "inativo",
+    },
   ]);
 
   const toggleStatus = (id: number) => {
@@ -28,7 +38,7 @@ export const LojistasPage: React.FC = () => {
 
   return (
     <div>
-      <h2 className="text-xl font-bold mb-4">Usuários → Lojistas</h2>
+      <h2 className="text-xl font-bold mb-4">Usuários</h2>
       <button
         className="mb-4 px-4 py-2 bg-blue-600 text-white rounded hover:bg-blue-700"
         onClick={() => alert("Abrir modal de cadastro")}
