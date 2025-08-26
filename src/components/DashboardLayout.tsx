@@ -33,7 +33,7 @@ export const DashboardLayout = ({
           className="p-2 hover:bg-gray-200 rounded cursor-pointer"
           onClick={() => onSectionChange?.("lojistas")}
         >
-          Usuários → Lojistas
+          Usuários 
         </li>
       </ul>
 
