@@ -5,19 +5,29 @@ import { Card } from "../components/ui/Card";
 
 export default function AdminDashboard() {
   const { logout, user } = useAuth();
+  const [showProfileModal, setShowProfileModal] = useState(false);
   const [showLogoutModal, setShowLogoutModal] = useState(false);
   const [loadingLogout, setLoadingLogout] = useState(false);
 
-  const handleLogoutClick = () => {
-    setShowLogoutModal(true);
-  };
+  const [profileData, setProfileData] = useState({
+    nomeLoja: "Minha Loja",
+    email: "loja@email.com",
+    avatarUrl: "https://i.pravatar.cc/100",
+  });
 
+  const handleLogoutClick = () => setShowLogoutModal(true);
   const handleConfirmLogout = () => {
     setLoadingLogout(true);
     setTimeout(() => {
       logout();
+      console.info("Você saiu do sistema");
       window.location.href = "/login";
     }, 1500);
+  };
+
+  const handleProfileSave = () => {
+    console.log("Salvou perfil:", profileData);
+    setShowProfileModal(false);
   };
 
   return (
@@ -26,7 +36,8 @@ export default function AdminDashboard() {
         title="Admin Dashboard"
         subtitle={`Bem-vindo, ${user?.username || "Admin"}`}
         showProfile={{
-          avatarUrl: "https://i.pravatar.cc/100",
+          avatarUrl: profileData.avatarUrl,
+          onProfile: () => setShowProfileModal(true),
           onLogout: handleLogoutClick,
         }}
       >
@@ -36,6 +47,68 @@ export default function AdminDashboard() {
           <Card>Vendas: R$ 5.000</Card>
         </div>
       </DashboardLayout>
+
+      {/* Modal de Configurações de perfil */}
+      {showProfileModal && (
+        <div className="fixed inset-0 flex items-center justify-center bg-black bg-opacity-40 z-50">
+          <div className="bg-white p-6 rounded-lg shadow-lg w-96">
+            <h2 className="text-xl font-bold mb-4">Configurações de perfil</h2>
+
+            <label className="block mb-2">
+              Nome da loja
+              <input
+                type="text"
+                className="border w-full p-2 rounded mt-1"
+                value={profileData.nomeLoja}
+                onChange={(e) =>
+                  setProfileData({ ...profileData, nomeLoja: e.target.value })
+                }
+              />
+            </label>
+
+            <label className="block mb-2">
+              Email
+              <input
+                type="email"
+                className="border w-full p-2 rounded mt-1"
+                value={profileData.email}
+                onChange={(e) =>
+                  setProfileData({ ...profileData, email: e.target.value })
+                }
+              />
+            </label>
+
+            <label className="block mb-4">
+              Avatar URL
+              <input
+                type="text"
+                className="border w-full p-2 rounded mt-1"
+                value={profileData.avatarUrl}
+                onChange={(e) =>
+                  setProfileData({ ...profileData, avatarUrl: e.target.value })
+                }
+              />
+            </label>
+
+            <div className="flex justify-end gap-2">
+              <button
+                onClick={() => setShowProfileModal(false)}
+                className="bg-gray-300 px-4 py-2 rounded hover:bg-gray-400"
+              >
+                Cancelar
+              </button>
+              <button
+                onClick={handleProfileSave}
+                className="bg-blue-600 px-4 py-2 rounded text-white hover:bg-blue-700"
+              >
+                Salvar
+              </button>
+            </div>
+          </div>
+        </div>
+      )}
+
+      {/* Modal de logout */}
       {showLogoutModal && (
         <div className="fixed inset-0 flex items-center justify-center bg-black bg-opacity-40 z-50">
           <div className="bg-white p-6 rounded-lg shadow-lg text-center w-80">
