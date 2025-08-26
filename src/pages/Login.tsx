@@ -1,15 +1,19 @@
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
+import { useAuth } from "../contexts/AuthContext";
 
 export default function Login() {
-  const [user, setUser] = useState("");
+  const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
   const navigate = useNavigate();
+  const { login } = useAuth();
 
   const handleLogin = () => {
-    if (user === "sysadmin" && password === "123") navigate("/sysadmin");
-    else if (user === "admin" && password === "123") navigate("/admin");
-    else alert("Usuário ou senha inválidos");
+    const success = login(username, password);
+    if (!success) return alert("Usuário ou senha inválidos");
+
+    if (username === "sysadmin") navigate("/sysadmin");
+    else if (username === "admin") navigate("/admin");
   };
 
   return (
@@ -19,8 +23,8 @@ export default function Login() {
         <input
           className="border p-2 w-full mb-4 rounded"
           placeholder="Usuário"
-          value={user}
-          onChange={(e) => setUser(e.target.value)}
+          value={username}
+          onChange={(e) => setUsername(e.target.value)}
         />
         <input
           className="border p-2 w-full mb-4 rounded"
@@ -39,4 +43,3 @@ export default function Login() {
     </div>
   );
 }
-

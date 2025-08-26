@@ -1,15 +1,15 @@
 import { useState, useEffect } from "react";
 
-export function useFetch<T>(endpoint: string, url: string) {
+export function useFetch<T>(fetchFunction: () => Promise<T>) {
   const [data, setData] = useState<T | null>(null);
   const [isLoading, setLoading] = useState(true);
 
   useEffect(() => {
-    fetch(`${url}`)
-      .then(res => res.json())
-      .then(json => setData(json))
+    setLoading(true);
+    fetchFunction()
+      .then((res) => setData(res))
       .finally(() => setLoading(false));
-  }, [url]);
+  }, [fetchFunction]);
 
   return { data, isLoading };
 }

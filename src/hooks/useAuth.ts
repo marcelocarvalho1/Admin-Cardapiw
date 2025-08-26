@@ -14,7 +14,6 @@ export function useAuth() {
   }, []);
 
   const login = (username: string, password: string) => {
-    // Simulação simples; substituir por API real
     if (username === "sysadmin" && password === "123") {
       const u: User = { username, role: "sysadmin" };
       setUser(u);
@@ -26,7 +25,7 @@ export function useAuth() {
       localStorage.setItem("user", JSON.stringify(u));
       return true;
     }
-    return false;
+    return false; // login falhou
   };
 
   const logout = () => {
