@@ -1,0 +1,8 @@
+{
+  "lojas": [
+    { "id": 1, "nome": "Loja A", "cidade": "São Paulo", "status": "Ativa" },
+    { "id": 2, "nome": "Loja B", "cidade": "Rio de Janeiro", "status": "Inativa" }
+  ],
+  "pedidos": [],
+  "produtos": []
+}
