@@ -13,7 +13,7 @@ export const ProfileMenu = () => {
     setLoading(true); // mostra loading
     setTimeout(() => { // simula tempo de processamento
       logout();
-      console.log("Você saiu do sistema");
+
       setLoading(false);
       setShowModal(false);
       navigate("/login");

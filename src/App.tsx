@@ -1,27 +1,25 @@
-import React from "react";
+import React, { ReactNode } from "react";
 import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
 import Login from "./pages/Login";
 import AdminDashboard from "./pages/AdminDashboard";
-import SysAdminDashboard from "./pages/SysAdmin";
+import SysAdmin from "./pages/SysAdmin";
 import { AuthProvider, useAuth } from "./contexts/AuthContext";
 
-// Componente de rota protegida
+// ✅ Proteção de rota
 function ProtectedRoute({
   role,
   children,
 }: {
   role: "admin" | "sysadmin";
-  children: JSX.Element;
+  children: ReactNode;
 }) {
   const { user } = useAuth();
 
-  // Enquanto o user ainda não carregou, retorna null (ou loading)
-  if (user === null) return null;
+  if (user === null) return null; // ou um <Loading />
 
-  // Se role não corresponde, redireciona para login
   if (user.role !== role) return <Navigate to="/login" replace />;
 
-  return children;
+  return <>{children}</>;
 }
 
 export default function App() {
@@ -44,12 +42,11 @@ export default function App() {
             path="/sysadmin/*"
             element={
               <ProtectedRoute role="sysadmin">
-                <SysAdminDashboard />
+                <SysAdmin />
               </ProtectedRoute>
             }
           />
 
-          {/* Redireciona qualquer outra rota para login */}
           <Route path="*" element={<Navigate to="/login" replace />} />
         </Routes>
       </BrowserRouter>
