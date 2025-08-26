@@ -1,5 +1,5 @@
 import React from "react";
-import { DashboardLayout } from "../components/DashboardLayout";
+import  {DashboardLayout}  from "../components/DashboardLayout";
 import { Card } from "../components/ui/Card";
 import { useFetch } from "../hooks/useFetch";
 import { fetchDashboardData } from "../api/mockApi";
