@@ -5,6 +5,7 @@ import { LojistasPage } from "./sysadmin/LojistaPage";
 
 export default function SysAdmin() {
   const { logout, user } = useAuth();
+
   const [section, setSection] = useState<"dashboard" | "lojistas">("dashboard");
   const [showLogoutModal, setShowLogoutModal] = useState(false);
   const [loadingLogout, setLoadingLogout] = useState(false);
@@ -16,25 +17,23 @@ export default function SysAdmin() {
     avatarUrl: "https://i.pravatar.cc/100",
   });
 
-  // Logout
   const handleLogoutClick = () => setShowLogoutModal(true);
+
   const handleConfirmLogout = () => {
     setLoadingLogout(true);
     setTimeout(() => {
       logout();
-      console.info("Você saiu do sistema");
       window.location.href = "/login";
     }, 1500);
   };
 
-  // Salvar perfil
   const handleProfileSave = () => {
     console.log("Perfil salvo:", profileData);
     setShowProfileModal(false);
   };
 
   return (
-    <>
+    <div className="min-h-screen bg-white text-gray-900">
       <DashboardLayout
         title="SysAdmin"
         subtitle="Painel de controle do sistema"
@@ -46,12 +45,14 @@ export default function SysAdmin() {
         }}
       >
         {section === "dashboard" && (
-          <div className="p-4 text-center">📊 Bem-vindo ao painel do SysAdmin!</div>
+          <div className="p-4 text-center bg-gray-100 rounded">
+            📊 Bem-vindo ao painel do SysAdmin!
+          </div>
         )}
         {section === "lojistas" && <LojistasPage />}
       </DashboardLayout>
 
-      {/* Modal de Configurações de Perfil */}
+      {/* Modal de Perfil */}
       {showProfileModal && (
         <div className="fixed inset-0 flex items-center justify-center bg-black bg-opacity-40 z-50">
           <div className="bg-white p-6 rounded-lg shadow-lg w-96">
@@ -102,7 +103,7 @@ export default function SysAdmin() {
               </button>
               <button
                 onClick={handleProfileSave}
-                className="bg-blue-600 px-4 py-2 rounded text-white hover:bg-blue-700"
+                className="bg-blue-600 text-white px-4 py-2 rounded hover:bg-blue-700"
               >
                 Salvar
               </button>
@@ -144,6 +145,6 @@ export default function SysAdmin() {
           </div>
         </div>
       )}
-    </>
+    </div>
   );
 }

@@ -4,8 +4,9 @@ import Login from "./pages/Login";
 import AdminDashboard from "./pages/AdminDashboard";
 import SysAdmin from "./pages/SysAdmin";
 import { AuthProvider, useAuth } from "./contexts/AuthContext";
+import { ThemeProvider } from "./contexts/ThemeContext";
 
-// ✅ Proteção de rota
+// Proteção de rota
 function ProtectedRoute({
   role,
   children,
@@ -25,31 +26,36 @@ function ProtectedRoute({
 export default function App() {
   return (
     <AuthProvider>
-      <BrowserRouter>
-        <Routes>
-          <Route path="/login" element={<Login />} />
+      <ThemeProvider>
+        {/* Container global para bg/text conforme tema */}
+        <div className="min-h-screen bg-white dark:bg-gray-900 text-gray-900 dark:text-gray-100 transition-colors duration-300">
+          <BrowserRouter>
+            <Routes>
+              <Route path="/login" element={<Login />} />
 
-          <Route
-            path="/admin/*"
-            element={
-              <ProtectedRoute role="admin">
-                <AdminDashboard />
-              </ProtectedRoute>
-            }
-          />
+              <Route
+                path="/admin/*"
+                element={
+                  <ProtectedRoute role="admin">
+                    <AdminDashboard />
+                  </ProtectedRoute>
+                }
+              />
 
-          <Route
-            path="/sysadmin/*"
-            element={
-              <ProtectedRoute role="sysadmin">
-                <SysAdmin />
-              </ProtectedRoute>
-            }
-          />
+              <Route
+                path="/sysadmin/*"
+                element={
+                  <ProtectedRoute role="sysadmin">
+                    <SysAdmin />
+                  </ProtectedRoute>
+                }
+              />
 
-          <Route path="*" element={<Navigate to="/login" replace />} />
-        </Routes>
-      </BrowserRouter>
+              <Route path="*" element={<Navigate to="/login" replace />} />
+            </Routes>
+          </BrowserRouter>
+        </div>
+      </ThemeProvider>
     </AuthProvider>
   );
 }

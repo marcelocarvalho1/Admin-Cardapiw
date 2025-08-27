@@ -24,19 +24,19 @@ export const DashboardLayout = ({
   const [openProfileMenu, setOpenProfileMenu] = useState(false);
 
   return (
-    <div className="min-h-screen flex bg-gray-100">
-      <aside className="w-64 bg-white shadow-lg p-4 flex flex-col justify-between">
+    <div className="min-h-screen flex bg-gray-100 text-gray-900">
+      <aside className="w-64 p-4 flex flex-col justify-between bg-white shadow-lg">
         <div>
           <h2 className="font-bold text-xl mb-4">Menu</h2>
           <ul>
             <li
-              className="p-2 hover:bg-gray-200 rounded cursor-pointer"
+              className="p-2 rounded cursor-pointer hover:bg-gray-200"
               onClick={() => onSectionChange && onSectionChange("dashboard")}
             >
               Dashboard
             </li>
             <li
-              className="p-2 hover:bg-gray-200 rounded cursor-pointer"
+              className="p-2 rounded cursor-pointer hover:bg-gray-200"
               onClick={() => onSectionChange && onSectionChange("lojistas")}
             >
               Lojistas
@@ -54,9 +54,9 @@ export const DashboardLayout = ({
             />
 
             {openProfileMenu && (
-              <div className="absolute bottom-12 left-0 bg-white shadow-lg rounded p-2 w-48 z-50">
+              <div className="absolute bottom-12 left-0 w-48 z-50 rounded p-2 bg-white shadow-lg">
                 <button
-                  className="block w-full text-left px-2 py-1 hover:bg-gray-100 rounded"
+                  className="block w-full text-left px-2 py-1 rounded hover:bg-gray-100"
                   onClick={() => {
                     setOpenProfileMenu(false);
                     showProfile.onProfile?.();
@@ -65,7 +65,7 @@ export const DashboardLayout = ({
                   Configurações de perfil
                 </button>
                 <button
-                  className="block w-full text-left px-2 py-1 hover:bg-gray-100 rounded"
+                  className="block w-full text-left px-2 py-1 rounded hover:bg-gray-100"
                   onClick={showProfile.onLogout}
                 >
                   Sair

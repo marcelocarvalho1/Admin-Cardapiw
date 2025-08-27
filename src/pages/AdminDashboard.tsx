@@ -5,6 +5,7 @@ import { Card } from "../components/ui/Card";
 
 export default function AdminDashboard() {
   const { logout, user } = useAuth();
+
   const [showProfileModal, setShowProfileModal] = useState(false);
   const [showLogoutModal, setShowLogoutModal] = useState(false);
   const [loadingLogout, setLoadingLogout] = useState(false);
@@ -16,22 +17,22 @@ export default function AdminDashboard() {
   });
 
   const handleLogoutClick = () => setShowLogoutModal(true);
+
   const handleConfirmLogout = () => {
     setLoadingLogout(true);
     setTimeout(() => {
       logout();
-      console.info("Você saiu do sistema");
       window.location.href = "/login";
     }, 1500);
   };
 
   const handleProfileSave = () => {
-    console.log("Salvou perfil:", profileData);
+    console.log("Perfil salvo:", profileData);
     setShowProfileModal(false);
   };
 
   return (
-    <>
+    <div className="min-h-screen bg-white text-gray-900">
       <DashboardLayout
         title="Admin Dashboard"
         subtitle={`Bem-vindo, ${user?.username || "Admin"}`}
@@ -42,13 +43,13 @@ export default function AdminDashboard() {
         }}
       >
         <div className="grid grid-cols-1 md:grid-cols-3 gap-4 mt-4">
-          <Card>Lojas: 10</Card>
-          <Card>Pedidos: 20</Card>
-          <Card>Vendas: R$ 5.000</Card>
+          <Card className="bg-gray-100 text-gray-900">Lojas: 10</Card>
+          <Card className="bg-gray-100 text-gray-900">Pedidos: 20</Card>
+          <Card className="bg-gray-100 text-gray-900">Vendas: R$ 5.000</Card>
         </div>
       </DashboardLayout>
 
-      {/* Modal de Configurações de perfil */}
+      {/* Modal de perfil */}
       {showProfileModal && (
         <div className="fixed inset-0 flex items-center justify-center bg-black bg-opacity-40 z-50">
           <div className="bg-white p-6 rounded-lg shadow-lg w-96">
@@ -141,6 +142,6 @@ export default function AdminDashboard() {
           </div>
         </div>
       )}
-    </>
+    </div>
   );
 }
